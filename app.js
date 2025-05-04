@@ -1,6 +1,5 @@
 if(process.env.NODE_ENV !== "production"){
-    require("dotenv").config(); // for environment variables 
-    // KABHI BHI NODE EVNIRONMENT FILE KO UPLOAD NAHI KARNA HAI 
+    require("dotenv").config(); // for environment variables
 }
 const express= require("express");
 const app=express();
@@ -86,19 +85,9 @@ app.use((req,res,next)=>{
     res.locals.currUser=req.user;
     next();
 });
-
-// app.get("/demouser", async (req,res)=>{
-//     let fakeUser= new User({
-//         username:"demouser",
-//         email: "demouser@gmail.com",
-// })
-//    let registeredUser= await  User.register(fakeUser,"helloworld");
-//    res.send(registeredUser);
-// });
-
-// app.get("/",(req,res)=>{
-//     res.send("hi , I am root");
-// });
+app.get("/", (req, res) => {
+    res.redirect("/listings");
+});
 
 //middleware
 
