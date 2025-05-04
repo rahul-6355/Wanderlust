@@ -95,8 +95,8 @@
                  
                 </div>
                 <div class="like-icon">
-                    <i class="fa-solid fa-heart"></i>
-                  <i class="fa-regular fa-heart"></i>
+                  
+                  <i class="fa-regular fa-heart" ></i>
                 </div>
                 <div class="card-body"> 
 
@@ -128,8 +128,18 @@
         }
         console.log("clicked tax switch")
     });
-</script>
-   
+    </script>
+
+    <script>
+      document.querySelectorAll('.like-icon i').forEach(icon => {
+        icon.addEventListener('click', (e) => {
+          e.preventDefault();
+          icon.classList.toggle('fa-regular');
+          icon.classList.toggle('fa-solid');
+          icon.classList.toggle('liked');
+        });
+      });
+    </script>
 
     <!-- <ul>
         <% for(let listing of allListings){%>

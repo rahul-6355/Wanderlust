@@ -142,9 +142,6 @@ margin-bottom: 2rem;
     margin-bottom: 8px;
     width: 250px;
     height: 170px;
-   
-
-    
   }
   .four-img{
     width: 500px;
@@ -159,6 +156,9 @@ margin-bottom: 2rem;
   }
   .card-body{
     width: 700px;
+  }
+  .like-icon{
+
   }
   .booking{
     width: 400px;
@@ -275,4 +275,9 @@ margin-bottom: 2rem;
       max-width: 500px;
       margin: 0 2rem;
     }
+  }
+
+  /* Heart icon liked state */
+  .liked {
+    color: red !important;
   }
