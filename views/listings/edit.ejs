@@ -15,15 +15,88 @@
                 <textarea name="listing[description]" class="form-control" required><%=listing.description%></textarea>
                 <div class="invalid-feedback">Write a few words about your item.</div>
             </div>
+
             <div class="mb-3">
-                <h5>Current Image</h5>
-                <img src="<%=originalImageUrl%>" alt="Current Image" class="img-fluid" style="max-width: 200px; max-height: 200px;">
+                <h5>Current Images</h5>
+                <div class="d-flex flex-wrap gap-3">
+                    <% if(listing.image && listing.image.url) { %>
+                        <div>
+                            <img src="<%=listing.image.url.replace('/upload','/upload/h_300,w_250')%>" alt="Image" class="img-fluid" style="max-width: 200px; max-height: 200px;">
+                            <p>Image</p>
+                        </div>
+                    <% } %>
+                    <% if(listing.image1 && listing.image1.url) { %>
+                        <div>
+                            <img src="<%=listing.image1.url.replace('/upload','/upload/h_300,w_250')%>" alt="Image1" class="img-fluid" style="max-width: 200px; max-height: 200px;">
+                            <p>Image1</p>
+                        </div>
+                    <% } %>
+                    <% if(listing.image2 && listing.image2.url) { %>
+                        <div>
+                            <img src="<%=listing.image2.url.replace('/upload','/upload/h_300,w_250')%>" alt="Image2" class="img-fluid" style="max-width: 200px; max-height: 200px;">
+                            <p>Image2</p>
+                        </div>
+                    <% } %>
+                    <% if(listing.image3 && listing.image3.url) { %>
+                        <div>
+                            <img src="<%=listing.image3.url.replace('/upload','/upload/h_300,w_250')%>" alt="Image3" class="img-fluid" style="max-width: 200px; max-height: 200px;">
+                            <p>Image3</p>
+                        </div>
+                    <% } %>
+                    <% if(listing.image4 && listing.image4.url) { %>
+                        <div>
+                            <img src="<%=listing.image4.url.replace('/upload','/upload/h_300,w_250')%>" alt="Image4" class="img-fluid" style="max-width: 200px; max-height: 200px;">
+                            <p>Image4</p>
+                        </div>
+                    <% } %>
+                </div>
             </div>
+
             <div class="mb-3">
-                <label for="image" class="form-label"> New Image</label>
-                <input placeholder="enter image URL/Link" name="listing[image]" class="form-control" type="file">
-                <div class="invalid-feedback">Please enter a valid image URL.</div>
+                <label for="image" class="form-label">New Image</label>
+                <input accept="image/*" name="listing[image]" class="form-control" type="file" id="imageInput">
+                <div class="invalid-feedback">Please select a valid image file.</div>
+                <div class="mt-2">
+                    <img id="imagePreview" src="#" alt="Image Preview" class="img-fluid" style="display:none; max-width: 100%; max-height: 300px;" />
+                </div>
             </div>
+
+            <div class="mb-3">
+                <label for="image1" class="form-label">New Image1</label>
+                <input accept="image/*" name="listing[image1]" class="form-control" type="file" id="imageInput1">
+                <div class="invalid-feedback">Please select a valid image file.</div>
+                <div class="mt-2">
+                    <img id="imagePreview1" src="#" alt="Image1 Preview" class="img-fluid" style="display:none; max-width: 100%; max-height: 300px;" />
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="image2" class="form-label">New Image2</label>
+                <input accept="image/*" name="listing[image2]" class="form-control" type="file" id="imageInput2">
+                <div class="invalid-feedback">Please select a valid image file.</div>
+                <div class="mt-2">
+                    <img id="imagePreview2" src="#" alt="Image2 Preview" class="img-fluid" style="display:none; max-width: 100%; max-height: 300px;" />
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="image3" class="form-label">New Image3</label>
+                <input accept="image/*" name="listing[image3]" class="form-control" type="file" id="imageInput3">
+                <div class="invalid-feedback">Please select a valid image file.</div>
+                <div class="mt-2">
+                    <img id="imagePreview3" src="#" alt="Image3 Preview" class="img-fluid" style="display:none; max-width: 100%; max-height: 300px;" />
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="image4" class="form-label">New Image4</label>
+                <input accept="image/*" name="listing[image4]" class="form-control" type="file" id="imageInput4">
+                <div class="invalid-feedback">Please select a valid image file.</div>
+                <div class="mt-2">
+                    <img id="imagePreview4" src="#" alt="Image4 Preview" class="img-fluid" style="display:none; max-width: 100%; max-height: 300px;" />
+                </div>
+            </div>
+
             <div class="row">
             <div class="mb-3 col-md-4">
                 <label for="price" class="form-label">Price</label>
@@ -45,4 +118,24 @@
         </form>
     </div>
     </div>
+<script>
+    function setupImagePreview(inputId, previewId) {
+        document.getElementById(inputId).addEventListener('change', function(event) {
+            const [file] = event.target.files;
+            const preview = document.getElementById(previewId);
+            if (file) {
+                preview.src = URL.createObjectURL(file);
+                preview.style.display = 'block';
+            } else {
+                preview.src = '#';
+                preview.style.display = 'none';
+            }
+        });
+    }
+    setupImagePreview('imageInput', 'imagePreview');
+    setupImagePreview('imageInput1', 'imagePreview1');
+    setupImagePreview('imageInput2', 'imagePreview2');
+    setupImagePreview('imageInput3', 'imagePreview3');
+    setupImagePreview('imageInput4', 'imagePreview4');
+</script>
 </body>

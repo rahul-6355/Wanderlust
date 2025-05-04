@@ -89,13 +89,16 @@
 <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
     <% for(let listing of allListings){%>
         <a href="/listings/<%=listing._id%>" class="listing-link">
-            <div class="card col listing-card" >
-                <img src="<%=listing.image.url%>" class="card-img-top "  style="height: 20rem;" alt="listing_img">
-                <div class="card-img-overlay">Create by Rahul</div>
+            <div class="card col listing-card card-effect" >
+                <img src="<%=listing.image.url%>" class="card-img-top rounded-4 " style="height: 20rem;" alt="listing_img">
+                <div class="card-img-overlay">
+                 
+                </div>
+                <div class="like-icon">
+                    <i class="fa-solid fa-heart"></i>
+                  <i class="fa-regular fa-heart"></i>
+                </div>
                 <div class="card-body"> 
-                    <!-- <form action="/listings/<%=listing._id%>?_method=DELETE" method="POST">
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    </form> -->
 
                   <p class="card-text">
                     <b><%=listing.title%></b> <br>

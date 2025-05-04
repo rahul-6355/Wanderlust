@@ -39,13 +39,33 @@ module.exports.showListing=async (req,res)=>{
 module.exports.createListing=async (req,res ,next)=>{
     // let{title,description,image,price,country,location}
     // let listing=req.body.listing;
-    let url= req.file.path;
-    let filename=req.file.filename;
-
-
+   
     const newListing=new Listing(req.body.listing);
     newListing.owner=req.user._id;
-    newListing.image={url,filename};
+
+    if(req.files){
+        if(req.files["listing[image]"]){
+            const file=req.files["listing[image]"][0];
+            newListing.image={url:file.path, filename:file.filename};
+        }
+        if(req.files["listing[image1]"]){
+            const file=req.files["listing[image1]"][0];
+            newListing.image1={url:file.path, filename:file.filename};
+        }
+        if(req.files["listing[image2]"]){
+            const file=req.files["listing[image2]"][0];
+            newListing.image2={url:file.path, filename:file.filename};
+        }
+        if(req.files["listing[image3]"]){
+            const file=req.files["listing[image3]"][0];
+            newListing.image3={url:file.path, filename:file.filename};
+        }
+        if(req.files["listing[image4]"]){
+            const file=req.files["listing[image4]"][0];
+            newListing.image4={url:file.path, filename:file.filename};
+        }
+    }
+
    await newListing.save();
     req.flash("success","New Listing Created");
     // console.log(listing);
@@ -69,20 +89,37 @@ module.exports.createListing=async (req,res ,next)=>{
 
     // update route
 
-    module.exports.updateListing=async (req,res)=>{
-        let {id}= req.params;
-        let listing= await Listing.findByIdAndUpdate(id,{...req.body.listing});
-        if( typeof req.file!=="undefined"){// if file is new file uploaded
-           
-            let url= req.file.path;
-            let filename=req.file.filename;
-            listing.image={url,filename};
-            await listing.save();
+module.exports.updateListing=async (req,res)=>{
+    let {id}= req.params;
+    let listing= await Listing.findByIdAndUpdate(id,{...req.body.listing});
+
+    if(req.files){
+        if(req.files["listing[image]"]){
+            const file=req.files["listing[image]"][0];
+            listing.image={url:file.path, filename:file.filename};
         }
-        
-       req.flash("success","Listing Updated");
-       res.redirect("/listings");
+        if(req.files["listing[image1]"]){
+            const file=req.files["listing[image1]"][0];
+            listing.image1={url:file.path, filename:file.filename};
+        }
+        if(req.files["listing[image2]"]){
+            const file=req.files["listing[image2]"][0];
+            listing.image2={url:file.path, filename:file.filename};
+        }
+        if(req.files["listing[image3]"]){
+            const file=req.files["listing[image3]"][0];
+            listing.image3={url:file.path, filename:file.filename};
+        }
+        if(req.files["listing[image4]"]){
+            const file=req.files["listing[image4]"][0];
+            listing.image4={url:file.path, filename:file.filename};
+        }
+        await listing.save();
     }
+    
+   req.flash("success","Listing Updated");
+   res.redirect("/listings");
+}
 
     // destroy route
 
@@ -93,4 +130,19 @@ module.exports.createListing=async (req,res ,next)=>{
         
     req.flash("success","Listing Deleted");
         res.redirect("/listings");
+    }
+
+    module.exports.booking=async (req,res)=>{
+        req.flash("success","Booking Confirmed");
+        res.redirect("/listings");
+    }
+
+    module.exports.listSearch=async (req,res)=>{
+        const {search}=req.query;
+        const allListings= await Listing.find({location:search});
+        if(allListings.length===0){
+            req.flash("error","No Listing Found");
+            return res.redirect("/listings");
+        }
+        res.render("./listings/index.ejs",{allListings});
     }
